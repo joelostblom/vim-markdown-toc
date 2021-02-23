@@ -34,7 +34,7 @@ function! s:FindHeaders()
 endfunction
 
 function! s:HeadingLevel(header)
-  let l:delim = split(a:header, " ")[0] 
+  let l:delim = split(a:header, " ")[0]
   if(l:delim[0] == "=")
     return 1
   elseif(l:delim[0] == "-")
@@ -63,7 +63,12 @@ function! s:GenerateMarkdownTOC()
     let l:levelsStack[-1] = l:num + 1
     let l:previousLevel = l:headingLevel
 
-    let l:formattedLine = repeat("\t", l:headingLevel - g:mdtoc_starting_header_level) . l:num . ". [" . sectionName .  "](#" . sectionId  . ")"
+    if(l:headingLevel == 1)
+      let l:formattedLine = repeat("", l:headingLevel - g:mdtoc_starting_header_level) . l:num . "[" . sectionName .  "](#" . sectionId  . ")"
+    else
+      let l:formattedLine = repeat("\t", l:headingLevel - g:mdtoc_starting_header_level) . l:num . "[" . sectionName .  "](#" . sectionId  . ")"
+    endif
+
     put =l:formattedLine
   endfor
 endfunction
