@@ -1,6 +1,9 @@
 if !exists("g:mdtoc_starting_header_level")
   let g:mdtoc_starting_header_level = 2
 endif
+if !exists("g:mdtoc_number_headers")
+  let g:mdtoc_number_headers = 1
+endif
 
 function! s:HeaderSearchRegex()
   if(g:mdtoc_starting_header_level == 1)
@@ -62,11 +65,16 @@ function! s:GenerateMarkdownTOC()
     let l:num = l:levelsStack[-1]
     let l:levelsStack[-1] = l:num + 1
     let l:previousLevel = l:headingLevel
+    if(g:mdtoc_number_headers == 1)
+      let l:bullet = l:num . ". "
+    else
+      let l:bullet = "- "
+    endif
 
     if(l:headingLevel == 1)
-      let l:formattedLine = repeat("", l:headingLevel - g:mdtoc_starting_header_level) . l:num . "[" . sectionName .  "](#" . sectionId  . ")"
+      let l:formattedLine = repeat("", l:headingLevel - g:mdtoc_starting_header_level) . l:bullet . "[" . sectionName .  "](#" . sectionId  . ")"
     else
-      let l:formattedLine = repeat("\t", l:headingLevel - g:mdtoc_starting_header_level) . l:num . "[" . sectionName .  "](#" . sectionId  . ")"
+      let l:formattedLine = repeat("\t", l:headingLevel - g:mdtoc_starting_header_level) . l:bullet . "[" . sectionName .  "](#" . sectionId  . ")"
     endif
 
     put =l:formattedLine
