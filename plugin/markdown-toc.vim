@@ -4,6 +4,9 @@ endif
 if !exists("g:mdtoc_number_headers")
   let g:mdtoc_number_headers = 1
 endif
+if !exists("g:mdtoc_indent")
+  let g:mdtoc_indent = "\t"
+endif
 
 function! s:HeaderSearchRegex()
   if(g:mdtoc_starting_header_level == 1)
@@ -74,7 +77,7 @@ function! s:GenerateMarkdownTOC()
     if(l:headingLevel == 1)
       let l:formattedLine = repeat("", l:headingLevel - g:mdtoc_starting_header_level) . l:bullet . "[" . sectionName .  "](#" . sectionId  . ")"
     else
-      let l:formattedLine = repeat("\t", l:headingLevel - g:mdtoc_starting_header_level) . l:bullet . "[" . sectionName .  "](#" . sectionId  . ")"
+      let l:formattedLine = repeat(g:mdtoc_indent, l:headingLevel - g:mdtoc_starting_header_level) . l:bullet . "[" . sectionName .  "](#" . sectionId  . ")"
     endif
 
     put =l:formattedLine
