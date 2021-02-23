@@ -19,6 +19,16 @@ By default this plugin will not generate an entry for top level headers (`#` or 
 let g:mdtoc_starting_header_level = 1
 ```
 
+You can turn off the numbering of headings
+```vimscript
+let g:mdtoc_number_headers = 0
+```
+
+And customize the indentation characters, e.g. to use spaces instead of the default tab
+```vimscript
+let g:mdtoc_indent = "    "
+```
+
 ## Example
 
 ```markdown
